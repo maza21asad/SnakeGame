@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    public float snakeMoveSpeed = 2f;
     private Vector2Int gridPosotion;
     private Vector2Int gridMoveDirection;
     private float gridMoveTimer;
@@ -68,7 +69,7 @@ public class Snake : MonoBehaviour
 
     private void HandleGridMovement()
     {
-        gridMoveTimer += Time.deltaTime;
+        gridMoveTimer += Time.deltaTime * snakeMoveSpeed;
         if (gridMoveTimer >= gridMoveTimerMax)
         {
             gridPosotion += gridMoveDirection;
@@ -86,5 +87,10 @@ public class Snake : MonoBehaviour
         float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (n < 0) n += 360;
         return n;
+    }
+
+    public Vector2Int GetGridPosition()
+    {
+        return gridPosotion;
     }
 }
