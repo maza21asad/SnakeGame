@@ -7,6 +7,7 @@ public class GameAssets : MonoBehaviour
     public static GameAssets Instance;
 
     public Sprite snakeHeadSprite;
+    public Sprite redAppleSprite;
 
     private void Awake()
     {
