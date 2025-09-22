@@ -133,4 +133,12 @@ public class Snake : MonoBehaviour
     {
         return gridPosotion;
     }
+
+    // Return the full list of positions occupied by the snake; Head + Body
+    public List<Vector2Int> GetFullSnakeGridPositionList()
+    {
+        List<Vector2Int> gridPositionList = new List<Vector2Int>() { gridPosotion };
+        gridPositionList.AddRange(snakeMovePositionList);
+        return gridPositionList;
+    }
 }
