@@ -27,7 +27,7 @@ public class Snake : MonoBehaviour
         gridMoveDirection = new Vector2Int(1, 0);
 
         snakeMovePositionList = new List<Vector2Int>();
-        snakeBodySize = 5;
+        snakeBodySize = 0;
     }
 
     // Update is called once per frame
@@ -85,7 +85,14 @@ public class Snake : MonoBehaviour
 
             //gridPosotion += gridMoveDirection;
 
-            if (snakeMovePositionList.Count >= snakeBodySize)
+            bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosotion);
+            if (snakeAteFood)
+            {
+                // Snake ate food and grow body
+                snakeBodySize++;
+            }
+
+            if (snakeMovePositionList.Count >= snakeBodySize + 1)
             {
                 snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
             }
@@ -112,8 +119,6 @@ public class Snake : MonoBehaviour
 
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection));
             transform.position = new Vector3(gridPosotion.x, gridPosotion.y);
-
-            levelGrid.SnakeMoved(gridPosotion);
         }       
     }
 
