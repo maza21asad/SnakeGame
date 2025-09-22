@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1061294482cf3a24a92232a4d65c9c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snake: {fileID: 0}
+  snake: {fileID: 1411905363}
 --- !u!1 &1294525841
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fb1c9f02d2765e4e8d7d13a8ebaa2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snakeMoveSpeed: 2
+  snakeBody: {fileID: -836591598, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
 --- !u!1 &1592946112
 GameObject:
   m_ObjectHideFlags: 0
