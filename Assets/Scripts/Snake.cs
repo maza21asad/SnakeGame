@@ -20,34 +20,63 @@ public class Snake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleInput();
+        HandleGridMovement();
+    }
+
+    private void HandleInput()
+    {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            gridMoveDirection.x = 0;
-            gridMoveDirection.y = +1;
+            if (gridMoveDirection.y != -1)
+            {
+                gridMoveDirection.x = 0;
+                gridMoveDirection.y = +1;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            gridMoveDirection.x = 0;
-            gridMoveDirection.y = -1;
+            if (gridMoveDirection.y != +1)
+            {
+                gridMoveDirection.x = 0;
+                gridMoveDirection.y = -1;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            gridMoveDirection.x = -1;
-            gridMoveDirection.y = 0;
+            if (gridMoveDirection.x != +1)
+            {
+                gridMoveDirection.x = -1;
+                gridMoveDirection.y = 0;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)) 
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            gridMoveDirection.x = +1;
-            gridMoveDirection.y = 0;
+            if (gridMoveDirection.x != -1)
+            {
+                gridMoveDirection.x = +1;
+                gridMoveDirection.y = 0;
+            }
         }
+    }
 
+    private void HandleGridMovement()
+    {
         gridMoveTimer += Time.deltaTime;
         if (gridMoveTimer >= gridMoveTimerMax)
         {
             gridPosotion += gridMoveDirection;
             gridMoveTimer -= gridMoveTimerMax;
-        }
 
-        transform.position = new Vector3(gridPosotion.x, gridPosotion.y);
+            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection));
+            transform.position = new Vector3(gridPosotion.x, gridPosotion.y);
+        }       
+    }
+
+    private float GetAngleFromVector(Vector2Int dir)
+    {
+        float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (n < 0) n += 360;
+        return n;
     }
 }
