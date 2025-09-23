@@ -81,12 +81,11 @@ public class Snake : MonoBehaviour
         gridMoveTimer += Time.deltaTime * snakeMoveSpeed;
         if (gridMoveTimer >= gridMoveTimerMax)
         {
-            gridPosotion += gridMoveDirection;
             gridMoveTimer -= gridMoveTimerMax;
 
             snakeMovePositionList.Insert(0, gridPosotion);
 
-            //gridPosotion += gridMoveDirection;
+            gridPosotion += gridMoveDirection;
 
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosotion);
             if (snakeAteFood)
