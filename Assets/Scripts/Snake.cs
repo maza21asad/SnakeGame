@@ -123,6 +123,12 @@ public class Snake : MonoBehaviour
 
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection));
             transform.position = new Vector3(gridPosotion.x, gridPosotion.y);
+
+            for (int i = 0; i < snakeBodyTransfoemList.Count; i++)
+            {
+                Vector3 snakeBodyPosition = new Vector3(snakeMovePositionList[i].x, snakeMovePositionList[i].y);
+                snakeBodyTransfoemList[i].position = snakeBodyPosition;
+            }
         }       
     }
 
