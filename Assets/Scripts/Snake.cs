@@ -11,8 +11,9 @@ public class Snake : MonoBehaviour
     private float gridMoveTimerMax;
     private LevelGrid levelGrid;
     private int snakeBodySize;
-    [SerializeField] private Sprite snakeBody;
+    //[SerializeField] private Sprite snakeBody;
     private List<Vector2Int> snakeMovePositionList;
+    private List<Transform> snakeBodyTransfoemList;
 
     public void Setup(LevelGrid levelGrid)
     {
@@ -28,6 +29,8 @@ public class Snake : MonoBehaviour
 
         snakeMovePositionList = new List<Vector2Int>();
         snakeBodySize = 0;
+
+        snakeBodyTransfoemList = new List<Transform>();
     }
 
     // Update is called once per frame
@@ -90,6 +93,7 @@ public class Snake : MonoBehaviour
             {
                 // Snake ate food and grow body
                 snakeBodySize++;
+                CreateSnakeBody();
             }
 
             if (snakeMovePositionList.Count >= snakeBodySize + 1)
@@ -97,29 +101,36 @@ public class Snake : MonoBehaviour
                 snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
             }
 
-            for (int i = 0; i < snakeMovePositionList.Count; i++)
-            {
-                Vector2Int snakeMovePosition = snakeMovePositionList[i];
-                //World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * .5f, Color.white);
-                //FunctionTimer.Create(worldSprite.DestroySelf, gridMoveTimerMax);
+            //for (int i = 0; i < snakeMovePositionList.Count; i++)
+            //{
+            //    Vector2Int snakeMovePosition = snakeMovePositionList[i];
+            //    //World_Sprite worldSprite = World_Sprite.Create(new Vector3(snakeMovePosition.x, snakeMovePosition.y), Vector3.one * .5f, Color.white);
+            //    //FunctionTimer.Create(worldSprite.DestroySelf, gridMoveTimerMax);
 
-                GameObject bodyPart = new GameObject("SnakeBodyPart", typeof(SpriteRenderer));
+            //    GameObject bodyPart = new GameObject("SnakeBodyPart", typeof(SpriteRenderer));
 
-                // Assign sprite
-                SpriteRenderer sr = bodyPart.GetComponent<SpriteRenderer>();
-                sr.sprite = snakeBody;
-                sr.sortingOrder = -1; // so it renders behind the head
+            //    // Assign sprite
+            //    SpriteRenderer sr = bodyPart.GetComponent<SpriteRenderer>();
+            //    sr.sprite = snakeBody;
+            //    sr.sortingOrder = -1; // so it renders behind the head
 
-                // Position it
-                bodyPart.transform.position = new Vector3(snakeMovePosition.x, snakeMovePosition.y, 0f);
+            //    // Position it
+            //    bodyPart.transform.position = new Vector3(snakeMovePosition.x, snakeMovePosition.y, 0f);
 
-                // Destroy it after one move (like FunctionTimer did)
-                Destroy(bodyPart, gridMoveTimerMax);
-            }
+            //    // Destroy it after one move (like FunctionTimer did)
+            //    Destroy(bodyPart, gridMoveTimerMax);
+            //}
 
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection));
             transform.position = new Vector3(gridPosotion.x, gridPosotion.y);
         }       
+    }
+
+    private void CreateSnakeBody()
+    {
+        GameObject snakeBodyGameObject = new GameObject("SnakeBody", typeof(SpriteRenderer));
+        snakeBodyGameObject.GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.snakeBodySprite;
+        snakeBodyTransfoemList.Add(snakeBodyGameObject.transform);
     }
 
     private float GetAngleFromVector(Vector2Int dir)
