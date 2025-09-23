@@ -185,8 +185,7 @@ public class Snake : MonoBehaviour
         {
             //Vector3 snakeBodyPosition = new Vector3(snakeMovePositionList[i].x, snakeMovePositionList[i].y);
             //snakeBodyPartList[i].SetGridPosition(snakeMovePositionList[i]);
-            snakeBodyPartList[i].SetGridPosition(snakeMovePositionList[i].GetGridPosition());
-
+            snakeBodyPartList[i].SetSnakeMovePosition(snakeMovePositionList[i]);
         }
     }
 
@@ -214,9 +213,10 @@ public class Snake : MonoBehaviour
         return gridPositionList;
     }
 
+    // Handles a Single Body Part
     private class SnakeBodyPart
     {
-        private Vector2Int gridPosition;
+        private SnakeMovePosition snakeMovePosition;
         private Transform transform;
         public SnakeBodyPart(int bodyIndex)
         {
@@ -226,10 +226,21 @@ public class Snake : MonoBehaviour
             transform = snakeBodyGameObject.transform;
         }
 
-        public void SetGridPosition(Vector2Int gridPosition)
+        public void SetSnakeMovePosition(SnakeMovePosition snakeMovePosition)
         {
-            this.gridPosition = gridPosition;
-            transform.position = new Vector3(gridPosition.x, gridPosition.y);
+            this.snakeMovePosition = snakeMovePosition;
+            transform.position = new Vector3(snakeMovePosition.GetGridPosition().x, snakeMovePosition.GetGridPosition().y);
+
+            float angle;
+            switch (snakeMovePosition.GetDirection())
+            {
+                default:
+                case Direction.Up: angle = 90; break;
+                case Direction.Down: angle = 90; break;
+                case Direction.Left: angle = 0; break;
+                case Direction.Right: angle = 0; break;
+            }
+            transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }
 
@@ -248,6 +259,11 @@ public class Snake : MonoBehaviour
         public Vector2Int GetGridPosition()
         {
             return gridPosition;
+        }
+
+        public Direction GetDirection()
+        {
+            return direction;
         }
     }
 }
