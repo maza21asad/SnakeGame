@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
-    private enum Direction
-    {
-        Left,Right,Up,Down
-    }
+    private enum Direction { Left,Right,Up,Down }
 
+    private enum State { Alive, Dead}
+
+    private State state;
     public float snakeMoveSpeed = 2f;
     private Vector2Int gridPosotion;
     //private Vector2Int gridMoveDirection;
@@ -43,13 +44,18 @@ public class Snake : MonoBehaviour
 
         //snakeBodyTransfoemList = new List<Transform>();
         snakeBodyPartList = new List<SnakeBodyPart>();
+        state = State.Alive;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
-        HandleGridMovement();
+        switch (state)
+        {
+            case State.Alive: HandleInput(); HandleGridMovement(); break;
+            case State.Dead: break;
+        }
+        
     }
 
     private void HandleInput()
@@ -136,6 +142,17 @@ public class Snake : MonoBehaviour
                 snakeMovePositionList.RemoveAt(snakeMovePositionList.Count - 1);
             }
 
+            foreach (SnakeBodyPart snakeBodyPart in snakeBodyPartList)
+            {
+                Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
+                if (gridPosotion == snakeBodyPartGridPosition)
+                {
+                    // Game Over
+                    Debug.Log("Game Over");
+                    state = State.Dead;
+                }
+            }
+
             //for (int i = 0; i < snakeMovePositionList.Count; i++)
             //{
             //    Vector2Int snakeMovePosition = snakeMovePositionList[i];
@@ -157,9 +174,8 @@ public class Snake : MonoBehaviour
             //}
 
             //transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection));
-            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector));
-
             transform.position = new Vector3(gridPosotion.x, gridPosotion.y);
+            transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector));
 
             UpdateSnakeBodyParts();
 
@@ -271,6 +287,12 @@ public class Snake : MonoBehaviour
                     } break;
             }
             transform.eulerAngles = new Vector3(0, 0, angle);
+        }
+
+        public Vector2Int GetGridPosition()
+        {
+            //return snakeMovePosition.GetGridPosition();
+            return snakeMovePosition != null ? snakeMovePosition.GetGridPosition() : new Vector2Int(-999, -999);
         }
     }
 
