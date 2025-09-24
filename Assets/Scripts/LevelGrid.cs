@@ -13,9 +13,7 @@ public class LevelGrid
     public LevelGrid(int width, int height)
     {
         this.width = width;
-        this.height = height;
-
-        
+        this.height = height;     
     }
 
     public void Setup(Snake snake)
@@ -52,5 +50,18 @@ public class LevelGrid
         {
             return false;
         }
+    }
+
+    public Vector2Int ValidateGridPosition(Vector2Int gridPosition)
+    {
+        if (gridPosition.x < 0)
+        {
+            gridPosition.x = width - 1;
+        }
+        if (gridPosition.y < 0)
+        {
+            gridPosition.y = height - 1;
+        }
+        return gridPosition;
     }
 }

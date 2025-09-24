@@ -32,7 +32,7 @@ public class Snake : MonoBehaviour
 
     private void Awake()
     {
-        gridPosotion = new Vector2Int(-5, 0);
+        gridPosotion = new Vector2Int(10, 10);
         gridMoveTimerMax = 1f;
         gridMoveTimer = gridMoveTimerMax;
         //gridMoveDirection = new Vector2Int(1, 0);
@@ -128,6 +128,7 @@ public class Snake : MonoBehaviour
             //gridPosotion += gridMoveDirection;
             gridPosotion += gridMoveDirectionVector;
 
+            gridPosotion = levelGrid.ValidateGridPosition(gridPosotion);
 
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosotion);
             if (snakeAteFood)
