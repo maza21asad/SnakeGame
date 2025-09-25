@@ -150,6 +150,7 @@ public class Snake : MonoBehaviour
                 {
                     // Game Over
                     Debug.Log("Game Over");
+                    Debug.Log("Snake eat itself");
                     state = State.Dead;
                 }
             }
