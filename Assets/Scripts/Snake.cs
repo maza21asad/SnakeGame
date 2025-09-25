@@ -7,7 +7,6 @@ using UnityEngine;
 public class Snake : MonoBehaviour
 {
     private enum Direction { Left,Right,Up,Down }
-
     private enum State { Alive, Dead}
 
     private State state;

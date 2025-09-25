@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameAssets : MonoBehaviour
 {
+    // Singleton Pattern
     public static GameAssets Instance;
 
     public Sprite snakeHeadSprite;

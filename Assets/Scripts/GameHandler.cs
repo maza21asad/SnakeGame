@@ -7,7 +7,6 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private Snake snake;
     private LevelGrid LevelGrid;
 
-    // Start is called before the first frame update
     void Start()
     {
         LevelGrid = new LevelGrid(30, 15);
