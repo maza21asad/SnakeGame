@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
+    private static GameHandler instance;
+
+    private static int score;
+
     [SerializeField] private Snake snake;
     private LevelGrid LevelGrid;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -13,5 +22,15 @@ public class GameHandler : MonoBehaviour
 
         snake.Setup(LevelGrid);
         LevelGrid.Setup(snake);
+    }
+
+    public static int GetScore()
+    {
+        return score;
+    }
+
+    public static void AddScore()
+    {
+        score += 1;
     }
 }
