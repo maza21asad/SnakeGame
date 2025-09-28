@@ -255,6 +255,8 @@ public class Snake : MonoBehaviour
             transform.position = new Vector3(snakeMovePosition.GetGridPosition().x, snakeMovePosition.GetGridPosition().y);
 
             float angle;
+            float posX = 0.2f;
+            float posY = 0.2f;
             switch (snakeMovePosition.GetDirection())
             {
                 default:
@@ -262,32 +264,35 @@ public class Snake : MonoBehaviour
                     switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default: angle = 90; break;
-                        case Direction.Right: angle = 45; break;
-                        case Direction.Left: angle = -45; break;
+                        case Direction.Right: angle = + 45; posX = transform.position.x + 0.2f; break;
+                        case Direction.Left: angle = - 45; posY = transform.position.y + 0.2f; break;
                     } break;
                 case Direction.Down:
                     switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default: angle = 90; break;
-                        case Direction.Right: angle = -45; break;
-                        case Direction.Left: angle = 45; break;
+                        case Direction.Right: angle = - 45; posX = transform.position.x + 0.2f; break;
+                        case Direction.Left: angle = + 45; posY = transform.position.y + 0.2f; break;
                     } break;
                 case Direction.Left:
                     switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default: angle = 0; break;
-                        case Direction.Down: angle = 45; break;
-                        case Direction.Up: angle = -45; break;
+                        case Direction.Down: angle = + 45; posX = transform.position.x + 0.2f; break;
+                        case Direction.Up: angle = - 45; posY = transform.position.y +0.2f; break;
                     } break;
                 case Direction.Right:  // Currently going to right
                     switch (snakeMovePosition.GetPreviousDirection())
                     {
                         default: angle = 0; break;
-                        case Direction.Down: angle = -45; break;
-                        case Direction.Up: angle = 45; break;
+                        case Direction.Down: angle = - 45; posX = transform.position.x + 0.2f; break;
+                        case Direction.Up: angle = + 45; posY = transform.position.y + 0.2f; break;
                     } break;
             }
-            transform.eulerAngles = new Vector3(0, 0, angle);
+            //transform.eulerAngles = new Vector3(0, 0, angle);
+            transform.localRotation = Quaternion.Euler(0, 0, angle);
+            
+            //transform.localPosition = new Vector3(posX, posY, 0);
         }
 
         public Vector2Int GetGridPosition()
