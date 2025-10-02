@@ -11,6 +11,8 @@ public class GameAssets : MonoBehaviour
     public Sprite snakeBodySprite;
     public Sprite redAppleSprite;
 
+    public Sprite snakeBodyCornerSprite;
+
     private void Awake()
     {
         Instance = this;
