@@ -307,7 +307,7 @@ public class Snake : MonoBehaviour
                     case Direction.Down:
                         switch (prevDir)
                         {
-                            case Direction.Left: angle = 180; break;  // ┐
+                            case Direction.Left: angle = 0; break;  // ┐
                             case Direction.Right: angle = 270; break;  // ┌
                         }
                         break;
@@ -315,7 +315,7 @@ public class Snake : MonoBehaviour
                     case Direction.Left:
                         switch (prevDir)
                         {
-                            case Direction.Up: angle = 90; break;   // ┘
+                            case Direction.Up: angle = 270; break;   // ┘
                             case Direction.Down: angle = 180; break;  // ┐
                         }
                         break;
@@ -324,7 +324,7 @@ public class Snake : MonoBehaviour
                         switch (prevDir)
                         {
                             case Direction.Up: angle = 0; break;   // └
-                            case Direction.Down: angle = 270; break;  // ┌
+                            case Direction.Down: angle = 90; break;  // ┌
                         }
                         break;
                 }
