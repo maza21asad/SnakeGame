@@ -1070,8 +1070,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snakeHeadSprite: {fileID: -34277718, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
   snakeBodySprite: {fileID: -836591598, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
-  redAppleSprite: {fileID: 21784112, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
   snakeBodyCornerSprite: {fileID: 1817208599, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
+  snakeTailSprite: {fileID: 373885011, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
+  redAppleSprite: {fileID: 21784112, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
 --- !u!4 &1592946114
 Transform:
   m_ObjectHideFlags: 0

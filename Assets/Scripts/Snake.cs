@@ -23,6 +23,11 @@ public class Snake : MonoBehaviour
 
     private List<SnakeBodyPart> snakeBodyPartList;
 
+    // === Tail Code Start ===
+    private GameObject snakeTailObject;
+    private SpriteRenderer snakeTailRenderer;
+    // === Tail Code End ===
+
     public void Setup(LevelGrid levelGrid)
     {
         this.levelGrid = levelGrid;
@@ -41,6 +46,15 @@ public class Snake : MonoBehaviour
 
         snakeBodyPartList = new List<SnakeBodyPart>();
         state = State.Alive;
+
+
+        // === Tail Code Start ===
+        snakeTailObject = new GameObject("SnakeTail", typeof(SpriteRenderer));
+        snakeTailRenderer = snakeTailObject.GetComponent<SpriteRenderer>();
+        snakeTailRenderer.sprite = GameAssets.Instance.snakeTailSprite;
+        snakeTailRenderer.sortingOrder = -100; // draw behind everything else
+        snakeTailObject.transform.position = new Vector3(gridPosotion.x - 1, gridPosotion.y, 0);
+        // === Tail Code End ===
     }
 
     // Update is called once per frame
@@ -145,7 +159,74 @@ public class Snake : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector));
 
             UpdateSnakeBodyParts();
-        }       
+
+
+            // === Tail Code Start ===
+            if (snakeBodyPartList.Count > 0)
+            {
+                // Get the last body part’s grid position
+                SnakeBodyPart lastBody = snakeBodyPartList[snakeBodyPartList.Count - 1];
+                Vector2Int tailGridPos = lastBody.GetGridPosition();
+
+                // --- NEW CODE START ---
+                // Offset tail to appear *behind* the last body part based on its move direction
+                Vector2Int offset = Vector2Int.zero;
+                switch (lastBody.GetDirection()) // assuming you store movement direction in SnakeBodyPart
+                {
+                    case Direction.Up: offset = Vector2Int.down; break;
+                    case Direction.Down: offset = Vector2Int.up; break;
+                    case Direction.Left: offset = Vector2Int.right; break;
+                    case Direction.Right: offset = Vector2Int.left; break;
+                }
+                tailGridPos += offset;
+                // --- NEW CODE END ---
+
+                // Update tail position
+                snakeTailObject.transform.position = new Vector3(tailGridPos.x, tailGridPos.y, 0);
+
+                //// Rotate tail to face same direction as last body part
+                //snakeTailObject.transform.rotation = lastBody.GetRotation();
+                //snakeTailObject.transform.rotation = lastBody.GetTransform().rotation;
+                float tailAngle = 0f;
+                switch (lastBody.GetDirection())
+                {
+                    case Direction.Up: tailAngle = 90f; break;
+                    case Direction.Down: tailAngle = 270f; break;
+                    case Direction.Left: tailAngle = 180f; break;
+                    case Direction.Right: tailAngle = 0f; break;
+                }
+                snakeTailObject.transform.rotation = Quaternion.Euler(0, 0, tailAngle);
+            }
+            else
+            {
+                // If no body yet, tail follows the head
+                //snakeTailObject.transform.position = new Vector3(gridPosotion.x - 1, gridPosotion.y, 0);
+                // --- NEW CODE START ---
+                Vector2Int tailGridPos = gridPosotion;
+                Vector2Int offset = Vector2Int.zero;
+                switch (gridMoveDirection)
+                {
+                    case Direction.Up: offset = Vector2Int.down; break;
+                    case Direction.Down: offset = Vector2Int.up; break;
+                    case Direction.Left: offset = Vector2Int.right; break;
+                    case Direction.Right: offset = Vector2Int.left; break;
+                }
+                tailGridPos += offset;
+                snakeTailObject.transform.position = new Vector3(tailGridPos.x, tailGridPos.y, 0);
+
+                float tailAngle = 0f;
+                switch (gridMoveDirection)
+                {
+                    case Direction.Up: tailAngle = 90f; break;
+                    case Direction.Down: tailAngle = 270f; break;
+                    case Direction.Left: tailAngle = 180f; break;
+                    case Direction.Right: tailAngle = 0f; break;
+                }
+                snakeTailObject.transform.rotation = Quaternion.Euler(0, 0, tailAngle);
+                // --- NEW CODE END ---
+            }
+            // === Tail Code End ===
+        }
     }
 
     private void CreateSnakeBody()
@@ -228,7 +309,7 @@ public class Snake : MonoBehaviour
                 {
                     case Direction.Up: angle = 90; break;
                     case Direction.Down: angle = 90; break;
-                    case Direction.Left: 
+                    case Direction.Left: angle = 0; break;
                     case Direction.Right: angle = 0; break;
                 }
             }
@@ -280,6 +361,23 @@ public class Snake : MonoBehaviour
         {
             return snakeMovePosition != null ? snakeMovePosition.GetGridPosition() : new Vector2Int(-999, -999);
         }
+
+        // === Tail Code Start ===
+        public Transform GetTransform()
+        {
+            return transform;
+        }
+        //public Quaternion GetRotation()
+        //{
+        //    return transform.rotation;
+        //}
+
+        public Direction GetDirection()
+        {
+            return snakeMovePosition != null ? snakeMovePosition.GetDirection() : Direction.Right;
+        }
+
+        // === Tail Code End ===
     }
 
     // Handles one move position from the Snake 
