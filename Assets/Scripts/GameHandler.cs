@@ -33,4 +33,9 @@ public class GameHandler : MonoBehaviour
     {
         score += 1;
     }
+
+    public static void SnakeDied()
+    {
+        //GameOverWindow.ShowStatic();
+    }
 }

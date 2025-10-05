@@ -28,6 +28,8 @@ public class Snake : MonoBehaviour
     private SpriteRenderer snakeTailRenderer;
     // === Tail Code End ===
 
+    [SerializeField] private GameOverWindow gameOverWindow;
+
     public void Setup(LevelGrid levelGrid)
     {
         this.levelGrid = levelGrid;
@@ -149,9 +151,11 @@ public class Snake : MonoBehaviour
                 if (gridPosotion == snakeBodyPartGridPosition)
                 {
                     // Game Over
-                    Debug.Log("Game Over");
-                    Debug.Log("Snake eat itself");
                     state = State.Dead;
+                    //GameHandler.SnakeDied();
+                    if (gameOverWindow != null)
+                        gameOverWindow.ShowGameOver();
+                    return;
                 }
             }
 
