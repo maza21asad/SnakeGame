@@ -834,7 +834,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1484,9 +1484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snakeHeadSprite: {fileID: 21300000, guid: 4a1b9d360c26357429027374332b97b1, type: 3}
-  snakeBodySprite: {fileID: 21300000, guid: 5aae1b2b550c31a4d9e60f60961d274a, type: 3}
-  snakeBodyCornerSprite: {fileID: 21300000, guid: 762a9c4e4e04f8541b47dd057d3dd4b8, type: 3}
-  snakeTailSprite: {fileID: 373885011, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
+  snakeBodySprite: {fileID: 21300000, guid: c4da0c99c0adb604ea863cc6f00da086, type: 3}
+  snakeBodyCornerSprite: {fileID: 0}
+  snakeTailSprite: {fileID: 21300000, guid: c4da0c99c0adb604ea863cc6f00da086, type: 3}
   redAppleSprite: {fileID: 21784112, guid: 04f218b1960ae0e4ba641b64e13c3509, type: 3}
 --- !u!4 &1592946114
 Transform:
@@ -1661,7 +1661,7 @@ Transform:
   m_GameObject: {fileID: 3250540926445844436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.1, y: 9.8, z: -0.02384899}
+  m_LocalPosition: {x: 7.999, y: 9.994, z: -0.02384899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
